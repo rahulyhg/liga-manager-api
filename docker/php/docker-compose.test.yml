@@ -1,32 +1,34 @@
-sut:
-  build: ../../
-  command: sh -c "bin/install.sh && phpunit"
-  environment:
-    - MYSQL_HOST=mariadb
-    - MYSQL_DATABASE=test
-    - MYSQL_USER=test
-    - MYSQL_PASSWORD=test
-    - SMTP_HOST=maildev
-    - SMTP_PORT=25
-    - MAILDEV_URI=http://maildev
-    - EMAIL_SENDER=admin@example.com;Admin
-    - LOG_LEVEL=notice
-  depends_on:
-    - mariadb
-    - maildev
-    - redis
+version: '3'
+services:
+  sut:
+    build: ../../
+    command: sh -c "bin/install.sh && phpunit"
+    environment:
+      - MYSQL_HOST=mariadb
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - MAILDEV_URI=http://maildev
+      - EMAIL_SENDER=admin@example.com;Admin
+      - LOG_LEVEL=notice
+    depends_on:
+      - mariadb
+      - maildev
+      - redis
 
-mariadb:
-  image: mariadb
-  environment:
-    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    - MYSQL_HOST=mariadb
-    - MYSQL_DATABASE=test
-    - MYSQL_USER=test
-    - MYSQL_PASSWORD=test
+  mariadb:
+    image: mariadb
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_HOST=mariadb
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
 
-redis:
-  image: redis:4-alpine
+  redis:
+    image: redis:4-alpine
 
-maildev:
-  image: djfarrelly/maildev
+  maildev:
+    image: djfarrelly/maildev
