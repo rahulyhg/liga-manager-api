@@ -1,7 +1,9 @@
 version: '3'
 services:
   sut:
-    build: ../../
+    build:
+      context: ../../
+      dockerfile: docker/php/Dockerfile
     command: sh -c "bin/install.sh && phpunit"
     environment:
       - MYSQL_HOST=mariadb
